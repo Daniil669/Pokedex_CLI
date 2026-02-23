@@ -1,3 +1,3 @@
-module github.com/daniil669/Pokedex_In_Go
+module pokedex_cli
 
 go 1.24.5

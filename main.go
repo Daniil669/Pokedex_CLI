@@ -1,7 +1,13 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"pokedex_cli/repl"
+)
 
 func main() {
-	fmt.Println("Hello, World!")
+	words := repl.CleanInput("     Hello,     World!    ")
+	for i, word := range words {
+		fmt.Printf("%d: %s\n", i, word)
+	}
 }
