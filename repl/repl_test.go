@@ -1,7 +1,6 @@
-package repl_test
+package repl
 
 import (
-	"pokedex_cli/repl"
 	"testing"
 )
 
@@ -32,7 +31,7 @@ func TestCleanInput(t *testing.T) {
 		},
 	}
 	for i, c := range cases {
-		actual := repl.CleanInput(c.input)
+		actual := cleanInput(c.input)
 		if len(actual) != len(c.expected) {
 			t.Errorf("Test #%d failed.\nexpected length: %d, actual length: %d\n", i+1, len(c.expected), len(actual))
 			return
