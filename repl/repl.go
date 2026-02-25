@@ -7,16 +7,19 @@ import (
 	"strings"
 )
 
-func cleanInput(text string) []string {
-	lowText := strings.ToLower(text)
-	words := strings.Fields(lowText)
-	return words
-}
-
 type cliCommand struct {
 	name        string
 	description string
 	callback    func() error
+}
+
+type config struct {
+}
+
+func cleanInput(text string) []string {
+	lowText := strings.ToLower(text)
+	words := strings.Fields(lowText)
+	return words
 }
 
 func StartRepl() {
@@ -50,6 +53,16 @@ func getCommands() map[string]cliCommand {
 			name:        "help",
 			description: "Displays a help message",
 			callback:    commandHelp,
+		},
+		"map": {
+			name:        "map",
+			description: "Displays 20 locations in Pokemon world. If called for the 2nd and so on times, it will display next 20 locations",
+			callback:    commandMap,
+		},
+		"mapb": {
+			name:        "mapb",
+			description: "Displays previous 20 locations when used after 'map' command",
+			callback:    commandMapb,
 		},
 	}
 	return commandsRegistry
