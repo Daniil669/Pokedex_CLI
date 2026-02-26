@@ -10,10 +10,12 @@ import (
 type cliCommand struct {
 	name        string
 	description string
-	callback    func() error
+	callback    func(*config) error
 }
 
 type config struct {
+	Next     string
+	Previous string
 }
 
 func cleanInput(text string) []string {
@@ -23,6 +25,10 @@ func cleanInput(text string) []string {
 }
 
 func StartRepl() {
+	pagination := config{
+		Next:     "",
+		Previous: "",
+	}
 	scanner := bufio.NewScanner(os.Stdin)
 	for {
 		fmt.Printf("Pokedex > ")
@@ -36,7 +42,7 @@ func StartRepl() {
 			fmt.Println("Uknonwn command")
 			continue
 		}
-		if err := cmd.callback(); err != nil {
+		if err := cmd.callback(&pagination); err != nil {
 			fmt.Println(err)
 		}
 	}
@@ -56,7 +62,7 @@ func getCommands() map[string]cliCommand {
 		},
 		"map": {
 			name:        "map",
-			description: "Displays 20 locations in Pokemon world. If called for the 2nd and so on times, it will display next 20 locations",
+			description: "Displays next 20 locations in Pokemon world",
 			callback:    commandMap,
 		},
 		"mapb": {
